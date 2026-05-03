@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sleeper Fantasy Football Plugin Configuration",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable the Sleeper fantasy football display."
+    },
+    "league_id": {
+      "type": "string",
+      "default": "",
+      "description": "Sleeper league ID. Recommended for reliable loading."
+    },
+    "username": {
+      "type": "string",
+      "default": "",
+      "description": "Sleeper username or user ID. Used to discover a league when league_id is blank."
+    },
+    "season": {
+      "type": "string",
+      "default": "",
+      "description": "NFL season year. Leave blank to use Sleeper's current league season."
+    },
+    "roster_id": {
+      "type": "integer",
+      "default": 0,
+      "minimum": 0,
+      "description": "Optional roster ID for your team. Use 0 to auto-detect."
+    },
+    "favorite_team_name": {
+      "type": "string",
+      "default": "",
+      "description": "Optional team-name text used to auto-detect your roster."
+    },
+    "display_mode": {
+      "type": "string",
+      "enum": ["matchup", "standings", "auto"],
+      "default": "auto",
+      "description": "Display weekly matchup, standings, or rotate both."
+    },
+    "show_all_matchups": {
+      "type": "boolean",
+      "default": false,
+      "description": "When enabled, rotates through every league matchup instead of focusing on your roster."
+    },
+    "max_standings_teams": {
+      "type": "integer",
+      "default": 4,
+      "minimum": 2,
+      "maximum": 8,
+      "description": "Number of top teams to show on standings cards."
+    },
+    "cache_seconds": {
+      "type": "integer",
+      "default": 300,
+      "minimum": 60,
+      "maximum": 3600,
+      "description": "How long to cache Sleeper API responses."
+    },
+    "display_duration": {
+      "type": "number",
+      "default": 20,
+      "minimum": 5,
+      "maximum": 300,
+      "description": "How long to display the plugin in rotation."
+    },
+    "card_rotation_seconds": {
+      "type": "number",
+      "default": 5,
+      "minimum": 2,
+      "maximum": 30,
+      "description": "How often to rotate between matchup and standings cards."
+    },
+    "request_timeout": {
+      "type": "integer",
+      "default": 8,
+      "minimum": 2,
+      "maximum": 30,
+      "description": "Sleeper API request timeout in seconds."
+    },
+    "primary_color": {
+      "type": "array",
+      "default": [255, 255, 255],
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "description": "Primary RGB text color."
+    },
+    "secondary_color": {
+      "type": "array",
+      "default": [130, 210, 255],
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "description": "Secondary RGB text color."
+    },
+    "accent_color": {
+      "type": "array",
+      "default": [60, 255, 150],
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "description": "Accent RGB color for leaders and dividers."
+    }
+  },
+  "additionalProperties": false,
+  "x-propertyOrder": [
+    "enabled",
+    "league_id",
+    "username",
+    "season",
+    "roster_id",
+    "favorite_team_name",
+    "display_mode",
+    "show_all_matchups",
+    "max_standings_teams",
+    "cache_seconds",
+    "display_duration",
+    "card_rotation_seconds",
+    "request_timeout",
+    "primary_color",
+    "secondary_color",
+    "accent_color"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "sleeper-fantasy-football",
+  "name": "Sleeper Fantasy Football",
+  "version": "1.0.0",
+  "author": "OpenAI",
+  "description": "Shows Sleeper fantasy football weekly matchups and league standings using the public Sleeper API.",
+  "entry_point": "manager.py",
+  "class_name": "SleeperFantasyFootballPlugin",
+  "category": "sports",
+  "tags": [
+    "fantasy football",
+    "sleeper",
+    "nfl",
+    "scoreboard",
+    "standings"
+  ],
+  "display_modes": [
+    "sleeper-fantasy-football"
+  ],
+  "update_interval": 300,
+  "default_duration": 20
+}

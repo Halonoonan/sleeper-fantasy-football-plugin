@@ -314,10 +314,6 @@ class SleeperFantasyFootballPlugin(BasePlugin):
         league = self._get_cached_json(f"{self.plugin_id}_league_{league_id}", f"/league/{league_id}")
         users = self._get_cached_json(f"{self.plugin_id}_users_{league_id}", f"/league/{league_id}/users")
         rosters_payload = self._get_cached_json(f"{self.plugin_id}_rosters_{league_id}", f"/league/{league_id}/rosters")
-        matchups = self._get_cached_json(
-            f"{self.plugin_id}_matchups_{league_id}_{week}",
-            f"/league/{league_id}/matchups/{week}",
-        )
 
         rosters, users_by_id = self._build_roster_maps(users, rosters_payload)
         self.favorite_roster_id = self._resolve_favorite_roster(rosters, users_by_id)
@@ -326,13 +322,18 @@ class SleeperFantasyFootballPlugin(BasePlugin):
         self.season_used = season
         self.week = week
 
-        matchup_cards = self._build_matchup_cards(matchups, rosters)
         standings_cards = self._build_standings_cards(rosters)
+        if self.display_mode == "standings":
+            return standings_cards
+
+        matchups = self._get_cached_json(
+            f"{self.plugin_id}_matchups_{league_id}_{week}",
+            f"/league/{league_id}/matchups/{week}",
+        )
+        matchup_cards = self._build_matchup_cards(matchups, rosters)
 
         if self.display_mode == "matchup":
             return matchup_cards or standings_cards
-        if self.display_mode == "standings":
-            return standings_cards or matchup_cards
         return matchup_cards + standings_cards
 
     def update(self) -> None:
@@ -366,7 +367,7 @@ class SleeperFantasyFootballPlugin(BasePlugin):
                 self.status_message = "Using cached fantasy data"
             else:
                 self.status_code = "api_error"
-                self.status_message = "Sleeper API error"
+                self.status_message = f"Sleeper error: {str(exc)[:28]}"
 
     def _load_font(self, size: int) -> ImageFont.ImageFont:
         try:
